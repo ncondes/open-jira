@@ -5,7 +5,7 @@ interface ContextProps {
    entries: Entry[];
    // Methods
    addNewEntry: (description: string) => void;
-   updateEntry: (payload: Entry) => void;
+   updateEntry: (payload: Entry, showSnackbar?: boolean) => void;
    deleteEntry: (payload: Entry) => void;
 }
 

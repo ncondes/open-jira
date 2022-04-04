@@ -1,7 +1,8 @@
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { FC, useContext } from "react";
 import { UiContext } from "../../context/ui";
+import NextLink from "next/link";
 
 export const Navbar: FC = () => {
    const { openSidebar } = useContext(UiContext);
@@ -16,8 +17,12 @@ export const Navbar: FC = () => {
             >
                <MenuOutlinedIcon />
             </IconButton>
-            <Typography variant="h6">Open Jira</Typography>
+            <NextLink href="/" passHref>
+               <Link underline="none" color="#FFF">
+                  <Typography variant="h6">Open Jira</Typography>
+               </Link>
+            </NextLink>
          </Toolbar>
       </AppBar>
-  );
+   );
 };

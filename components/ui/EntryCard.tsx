@@ -4,7 +4,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Entry } from "../../interfaces";
 import { UiContext } from "../../context/ui";
 import { EntriesContext } from "../../context/entries/EntriesContext";
-
+import { useRouter } from "next/router";
+import { dateFunctions } from "../../utils";
 interface Props {
    entry: Entry;
 }
@@ -12,6 +13,8 @@ interface Props {
 export const EntryCard: FC<Props> = ({ entry }) => {
    const { startDragging, endDragging } = useContext(UiContext);
    const { deleteEntry } = useContext(EntriesContext);
+
+   const router = useRouter();
 
    const onDragStart = (e: DragEvent<HTMLDivElement>) => {
       e.dataTransfer.setData("text", entry._id);
@@ -26,10 +29,15 @@ export const EntryCard: FC<Props> = ({ entry }) => {
       deleteEntry(entry);
    };
 
+   const onClick = () => {
+      router.push(`/entries/${entry._id}`);
+   };
+
    return (
       <Card
          sx={{ marginBottom: 1, position: "relative" }}
          draggable
+         onClick={onClick}
          onDragStart={onDragStart}
          onDragEnd={onDragEnd}
       >
@@ -47,7 +55,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
                </Typography>
             </CardContent>
             <CardActions sx={{ display: "flex", justifyContent: "end", paddingRight: 2 }}>
-               <Typography variant="body2">30 Minutes Ago</Typography>
+               <Typography variant="body2">{dateFunctions.getFormatDistanceToNow(entry.createdAt)}</Typography>
             </CardActions>
          </CardActionArea>
       </Card >
